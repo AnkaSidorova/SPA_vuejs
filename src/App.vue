@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Table :users="allUsers" :gridColumns="gridColumns" />
+    <Form />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Form from "./components/form";
+import Table from "./components/table.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Table,
+    Form,
+  },
+  computed: mapGetters(["allUsers"]),
+  methods: mapActions(["getUsers"]),
+  mounted() {
+    this.getUsers();
+  },
+  data() {
+    return {
+      gridColumns: [
+        "date",
+        "name",
+        "email",
+        "phone",
+        "distance",
+        "payment",
+        "dateNow",
+      ],
+    };
+  },
+};
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
